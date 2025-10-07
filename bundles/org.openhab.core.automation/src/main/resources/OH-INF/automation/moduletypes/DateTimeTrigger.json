@@ -22,19 +22,21 @@
 					"options": [
 						{
 							"label": "Yes",
-							"value": "true"
+							"value": true
 						},
 						{
 							"label": "No",
-							"value": "false"
+							"value": false
 						}
-					]
+					],
+					"default": false
 				},
 				{
 					"name": "offset",
 					"type": "INTEGER",
 					"label": "Offset",
-					"description": "The offset in seconds to add to the time of the item."
+					"description": "The offset in seconds to add to the time of the item.",
+					"default" : 0
 				}
 			]
 		}
