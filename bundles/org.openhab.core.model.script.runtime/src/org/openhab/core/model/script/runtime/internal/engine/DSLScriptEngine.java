@@ -12,6 +12,8 @@
  */
 package org.openhab.core.model.script.runtime.internal.engine;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.Reader;
 import java.util.List;
 import java.util.Map;
@@ -208,7 +210,18 @@ public class DSLScriptEngine implements javax.script.ScriptEngine {
 
     @Override
     public Object eval(Reader reader) throws ScriptException {
-        return null;
+        try {
+            StringBuilder s = new StringBuilder();
+            BufferedReader bufferedReader = new BufferedReader(reader);
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                s.append(line);
+                s.append("\n");
+            }
+            return eval(s.toString());
+        } catch (IOException e) {
+            throw new ScriptException(e);
+        }
     }
 
     @Override
