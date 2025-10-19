@@ -138,7 +138,7 @@ public class ScriptTransformationService implements TransformationService, Scrip
 
         ScriptRecord scriptRecord = Objects
                 .requireNonNull(scriptCache.computeIfAbsent(scriptUid, k -> new ScriptRecord()));
-        scriptRecord.lock.lock();
+        scriptRecord.lock.lock();//script transforms are locked
         try {
             if (scriptRecord.script.isBlank()) {
                 if (inlineScript != null) {

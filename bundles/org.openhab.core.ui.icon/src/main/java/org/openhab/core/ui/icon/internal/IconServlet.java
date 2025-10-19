@@ -147,11 +147,11 @@ public class IconServlet extends HttpServlet {
         } catch (IOException e) {
             logger.error("Failed sending the icon byte stream as a response: {}", e.getMessage());
             logger.error("A Failed sending the icon byte stream as a response: {}", e.toString());
-	    if (e.getCause() != null) {
-		logger.error("B cause Failed sending the icon byte stream as a response: {}", e.getCause().toString()); 
-		logger.error("C cause Failed sending the icon byte stream as a response: {}", e.getCause());
-	    } else 
-		logger.error("D cause is null Failed sending the icon byte stream as a response.");
+            if (e.getCause() != null) {
+                logger.error("B cause Failed sending the icon byte stream as a response: {}", e.getCause().toString());
+                logger.error("C cause Failed sending the icon byte stream as a response: {}", e.getCause());
+            } else
+                logger.error("D cause is null Failed sending the icon byte stream as a response.");
             resp.sendError(500, e.getMessage());
         }
     }
