@@ -58,6 +58,9 @@ public class DSLScriptEngineFactory implements ScriptEngineFactory {
 
     @Override
     public void scopeValues(javax.script.ScriptEngine scriptEngine, Map<String, Object> scopeValues) {
+        for (var entry : scopeValues.entrySet()) {
+            scriptEngine.put(entry.getKey(), entry.getValue());
+        }
     }
 
     @Override

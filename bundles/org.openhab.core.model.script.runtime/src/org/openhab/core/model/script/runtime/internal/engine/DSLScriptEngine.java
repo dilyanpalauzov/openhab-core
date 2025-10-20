@@ -66,13 +66,7 @@ public class DSLScriptEngine implements javax.script.ScriptEngine {
     private static final Map<String, String> IMPLICIT_VARS = Map.of( //
             "command", ScriptJvmModelInferrer.VAR_RECEIVED_COMMAND, //
             "state", ScriptJvmModelInferrer.VAR_NEW_STATE, //
-            "newState", ScriptJvmModelInferrer.VAR_NEW_STATE, //
-            "oldState", ScriptJvmModelInferrer.VAR_PREVIOUS_STATE, //
-            "lastStateUpdate", ScriptJvmModelInferrer.VAR_LAST_STATE_UPDATE, //
-            "lastStateChange", ScriptJvmModelInferrer.VAR_LAST_STATE_CHANGE, //
-            "triggeringItem", ScriptJvmModelInferrer.VAR_TRIGGERING_ITEM, //
-            "triggeringGroup", ScriptJvmModelInferrer.VAR_TRIGGERING_GROUP, //
-            "input", ScriptJvmModelInferrer.VAR_INPUT);
+            "oldState", ScriptJvmModelInferrer.VAR_PREVIOUS_STATE);
 
     private final Logger logger = LoggerFactory.getLogger(DSLScriptEngine.class);
 
@@ -87,6 +81,7 @@ public class DSLScriptEngine implements javax.script.ScriptEngine {
             @Nullable DSLScriptContextProvider contextProvider, ScriptExtensionAccessor scriptExtensionAccessor) {
         this.scriptEngine = scriptEngine;
         this.contextProvider = contextProvider;
+        logger.error("DSLScriptEnigne constructor context-provider is {}", contextProvider.toString());
         this.scriptExtensionAccessor = scriptExtensionAccessor;
     }
 
@@ -103,19 +98,21 @@ public class DSLScriptEngine implements javax.script.ScriptEngine {
     @Override
     public Object eval(String script) throws ScriptException {
         String modelName = null;
+        logger.error("eval(String) start");
         try {
             IEvaluationContext specificContext = null;
             org.openhab.core.model.script.engine.Script s = null;
             if (script.stripLeading().startsWith(DSLScriptContextProvider.CONTEXT_IDENTIFIER)) {
                 String contextString = script.stripLeading().substring(
                         DSLScriptContextProvider.CONTEXT_IDENTIFIER.length(), script.stripLeading().indexOf('\n'));
+                logger.error("DSL EVAL contextString is {}", contextString);
                 if (contextString.contains("-")) {
                     int indexLastDash = contextString.lastIndexOf('-');
                     modelName = contextString.substring(0, indexLastDash);
                     String ruleIndex = contextString.substring(indexLastDash + 1);
                     if (contextProvider != null) {
                         DSLScriptContextProvider cp = contextProvider;
-                        logger.debug("Script uses context '{}'.", contextString);
+                        logger.error("Script uses context '{}'.", contextString);
                         specificContext = cp.getContext(modelName);
                         XExpression xExpression = cp.getParsedScript(modelName, ruleIndex);
                         if (xExpression != null) {
@@ -134,22 +131,25 @@ public class DSLScriptEngine implements javax.script.ScriptEngine {
                     return null;
                 }
             } else {
+                logger.error("script does not start with [{}]", DSLScriptContextProvider.CONTEXT_IDENTIFIER);
                 s = parsedScript;
                 if (s == null) {
                     s = scriptEngine.newScriptFromString(script);
                     parsedScript = s;
                 }
             }
+            logger.error("NOW CREATING DSLEvaluationContext");
             IEvaluationContext evalContext = createEvaluationContext(s, specificContext);
             return s.execute(evalContext);
         } catch (ScriptExecutionException | ScriptParsingException e) {
             // in case of error, drop the cached script to make sure, it is re-resolved.
+            logger.error("NOT USING DSLEvaluationContext - EXCEPTION");
             parsedScript = null;
             throw new ScriptException(e.getMessage(), modelName, -1);
         }
     }
 
-    private DefaultEvaluationContext createEvaluationContext(Script script, IEvaluationContext specificContext) {
+    private IEvaluationContext createEvaluationContext(Script script, IEvaluationContext specificContext) {
         IEvaluationContext parentContext = specificContext;
         if (specificContext == null && script instanceof ScriptImpl impl) {
             XExpression xExpression = impl.getXExpression();
@@ -161,7 +161,7 @@ public class DSLScriptEngine implements javax.script.ScriptEngine {
                 }
             }
         }
-        DefaultEvaluationContext evalContext = new DefaultEvaluationContext(parentContext);
+        IEvaluationContext evalContext = new DSLEvaluationContext(parentContext);
         for (Map.Entry<String, String> entry : IMPLICIT_VARS.entrySet()) {
             Object value = context.getAttribute(entry.getKey());
             if (value != null) {
@@ -204,7 +204,7 @@ public class DSLScriptEngine implements javax.script.ScriptEngine {
             evalContext.newValue(QualifiedName.create(ScriptJvmModelInferrer.VAR_NEW_STATUS),
                     event.getStatusInfo().getStatus().toString());
         }
-
+        logger.error("CREATE EVAL CONTEXT 6");
         return evalContext;
     }
 
@@ -236,6 +236,8 @@ public class DSLScriptEngine implements javax.script.ScriptEngine {
 
     @Override
     public void put(String key, Object value) {
+        logger.error("DSLEngine.put A {} -> {}", key, value.toString());
+        context.setAttribute(key, value, ScriptContext.ENGINE_SCOPE);
     }
 
     @Override
@@ -330,5 +332,26 @@ public class DSLScriptEngine implements javax.script.ScriptEngine {
                 return null;
             }
         };
+    }
+
+    class DSLEvaluationContext extends DefaultEvaluationContext {
+        DSLEvaluationContext() {
+        };
+
+        DSLEvaluationContext(IEvaluationContext parent) {
+            super(parent);
+        }
+
+        @Override
+        public Object getValue(QualifiedName qualifiedName) {
+            logger.error("DLSEvaluationContext.getValue A for {}", qualifiedName.toString());
+            Object found = context.getAttribute(qualifiedName.toString());
+            return found != null ? found : super.getValue(qualifiedName);
+        }
+
+        @Override
+        public IEvaluationContext fork() {
+            return new DSLEvaluationContext(super.fork());
+        }
     }
 }
