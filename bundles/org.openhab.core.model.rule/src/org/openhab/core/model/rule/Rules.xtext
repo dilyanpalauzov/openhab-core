@@ -19,8 +19,7 @@ VariableDeclaration:
 	(writeable?='var'|'val') (=>(type=JvmTypeReference name=ValidID) | name=ValidID) ('=' right=XExpression)?
 ;
 
-Rule returns XExpression:
-        {Rule}
+Rule:
 	'rule' name=(STRING|ID)
 	'when' eventtrigger+=EventTrigger ('or' eventtrigger+=EventTrigger)*
 	'then' script=Script

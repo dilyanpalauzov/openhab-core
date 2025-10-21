@@ -71,22 +71,30 @@ class RulesJvmModelInferrer extends ScriptJvmModelInferrer {
     /**
      * Is called for each instance of the first argument's type contained in a resource.
      * 
-     * @param rule the model to create one or more JvmDeclaredTypes from.
+     * @param ruleModel the model to create one or more JvmDeclaredTypes from.
      * @param acceptor each created JvmDeclaredType without a container should be passed to the acceptor in order get attached to the
      *                   current resource.
      * @param isPreIndexingPhase whether the method is called in a pre linking phase, i.e. when the global index isn't fully updated. You
      *        must not rely on linking using the index if isPreIndexingPhase is <code>true</code>
      */
-    def dispatch void infer(Rule rule, IJvmDeclaredTypeAcceptor acceptor, boolean isPreIndexingPhase) {
-        val className = rule.eResource.URI.lastSegment.split("\\.").head.toFirstUpper + "Rule"
-        acceptor.accept(rule.toClass(className), [
+    def dispatch void infer(RuleModel ruleModel, IJvmDeclaredTypeAcceptor acceptor, boolean isPreIndexingPhase) {
+        val className = ruleModel.eResource.URI.lastSegment.split("\\.").head.toFirstUpper + "Rules"
+        acceptor.accept(ruleModel.toClass(className), [
+            members += ruleModel.variables.map [
+                toField(name, type?.cloneWithProxies) => [ field |
+                    field.static = true
+                    field.final = !writeable
+                    field.initializer = right
+                ]
+            ]
+
             val Set<String> fieldNames = newHashSet()
 
             val types = stateAndCommandProvider.allTypes
             types.forEach [ type |
                 val name = type.toString
                 if (fieldNames.add(name)) {
-                    members += rule.toField(name, typeRef(type.class)) [
+                    members += ruleModel.toField(name, typeRef(type.class)) [
                         static = true
                     ]
                 } else {
@@ -97,7 +105,7 @@ class RulesJvmModelInferrer extends ScriptJvmModelInferrer {
             itemRegistry?.items?.forEach [ item |
                 val name = item.name
                 if (fieldNames.add(name)) {
-                    members += rule.toField(item.name, typeRef(item.class)) [
+                    members += ruleModel.toField(item.name, typeRef(item.class)) [
                         static = true
                     ]
                 } else {
@@ -109,7 +117,7 @@ class RulesJvmModelInferrer extends ScriptJvmModelInferrer {
             things?.forEach [ thing |
                 val name = thing.getUID().toString()
                 if (fieldNames.add(name)) {
-                    members += rule.toField(name, typeRef(thing.class)) [
+                    members += ruleModel.toField(name, typeRef(thing.class)) [
                         static = true
                     ]
                 } else {
@@ -117,6 +125,7 @@ class RulesJvmModelInferrer extends ScriptJvmModelInferrer {
                 }
             ]
 
+            members += ruleModel.rules.map [ rule |
                 rule.toMethod("_" + rule.name, typeRef(Void.TYPE)) [
                     static = true
                     val privateCacheTypeRef = typeRef(ValueCache)
@@ -170,6 +179,7 @@ class RulesJvmModelInferrer extends ScriptJvmModelInferrer {
 
                     body = rule.script
                 ]
+            ]
         ])
     }
 
