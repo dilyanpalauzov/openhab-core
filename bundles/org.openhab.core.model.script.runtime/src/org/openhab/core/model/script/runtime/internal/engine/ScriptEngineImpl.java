@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
+import javax.script.ScriptContext;
+
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -106,8 +108,8 @@ public class ScriptEngineImpl implements ScriptEngine, ModelParser {
     }
 
     @Override
-    public Script newScriptFromString(String scriptAsString) throws ScriptParsingException {
-        return newScriptFromXExpression(parseScriptIntoXTextEObject(scriptAsString));
+    public Script newScriptFromString(String scriptAsString, ScriptContext context) throws ScriptParsingException {
+        return newScriptFromXExpression(parseScriptIntoXTextEObject(scriptAsString, context));
     }
 
     @Override
@@ -117,7 +119,8 @@ public class ScriptEngineImpl implements ScriptEngine, ModelParser {
         return script;
     }
 
-    private XExpression parseScriptIntoXTextEObject(String scriptAsString) throws ScriptParsingException {
+    private XExpression parseScriptIntoXTextEObject(String scriptAsString, ScriptContext context)
+            throws ScriptParsingException {
         XtextResourceSet resourceSet = getResourceSet();
         Resource resource = resourceSet.createResource(computeUnusedUri(resourceSet)); // IS-A XtextResource
         try {

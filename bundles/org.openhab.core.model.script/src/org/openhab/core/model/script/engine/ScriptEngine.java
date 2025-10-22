@@ -12,6 +12,8 @@
  */
 package org.openhab.core.model.script.engine;
 
+import javax.script.ScriptContext;
+
 import org.eclipse.xtext.xbase.XExpression;
 
 /**
@@ -26,10 +28,11 @@ public interface ScriptEngine {
      * Parses a string and returns a parsed script object.
      *
      * @param scriptAsString script to parse
+     * @param context
      * @return Script object, which can be executed
      * @throws ScriptParsingException
      */
-    Script newScriptFromString(final String scriptAsString) throws ScriptParsingException;
+    Script newScriptFromString(final String scriptAsString, ScriptContext context) throws ScriptParsingException;
 
     /**
      * Wraps an Xbase XExpression in a Script instance

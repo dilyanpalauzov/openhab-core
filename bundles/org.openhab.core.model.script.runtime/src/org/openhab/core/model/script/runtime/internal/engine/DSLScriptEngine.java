@@ -144,7 +144,7 @@ public class DSLScriptEngine implements javax.script.ScriptEngine {
             } else {
                 s = parsedScript;
                 if (s == null) {
-                    s = scriptEngine.newScriptFromString(script);
+                    s = scriptEngine.newScriptFromString(script, context);
                     parsedScript = s;
                 }
             }

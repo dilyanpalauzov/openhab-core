@@ -235,8 +235,8 @@ public class ScriptEngineOSGiTest extends JavaOSGiTest {
 
     @Test
     public void testpostUpdateQuantityType() throws ScriptParsingException, ScriptExecutionException {
-        scriptEngine.newScriptFromString("postUpdate(NumberA, 20.0|°C)").execute();
-        scriptEngine.newScriptFromString("sendCommand(NumberA, 20.0|°F)").execute();
+        scriptEngine.newScriptFromString("postUpdate(NumberA, 20.0|°C)", null).execute();
+        scriptEngine.newScriptFromString("sendCommand(NumberA, 20.0|°F)", null).execute();
     }
 
     @Test
@@ -369,6 +369,6 @@ public class ScriptEngineOSGiTest extends JavaOSGiTest {
 
     @SuppressWarnings("unchecked")
     private <T> T runScript(String script) throws ScriptExecutionException, ScriptParsingException {
-        return (T) scriptEngine.newScriptFromString(script).execute();
+        return (T) scriptEngine.newScriptFromString(script, null).execute();
     }
 }
