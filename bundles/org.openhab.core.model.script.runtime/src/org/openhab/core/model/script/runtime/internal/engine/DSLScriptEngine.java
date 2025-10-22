@@ -345,8 +345,13 @@ public class DSLScriptEngine implements javax.script.ScriptEngine {
         @Override
         public Object getValue(QualifiedName qualifiedName) {
             logger.error("DLSEvaluationContext.getValue A for {}", qualifiedName.toString());
-            Object found = context.getAttribute(qualifiedName.toString());
-            return found != null ? found : super.getValue(qualifiedName);
+            Object found = super.getValue(qualifiedName);
+            if (found == null) {
+                found = context.getAttribute(qualifiedName.toString());
+                if (found instanceof Class || found instanceof Enum)
+                    found = null;
+            }
+            return found;
         }
 
         @Override
