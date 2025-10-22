@@ -49,7 +49,7 @@ public class ScriptEngineConsoleCommandExtension extends AbstractConsoleCommandE
         if (scriptEngine != null) {
             String scriptString = String.join(" ", args);
             try {
-                Script script = scriptEngine.newScriptFromString(scriptString);
+                Script script = scriptEngine.newScriptFromString(scriptString, null);
                 Object result = script.execute();
 
                 if (result != null) {
