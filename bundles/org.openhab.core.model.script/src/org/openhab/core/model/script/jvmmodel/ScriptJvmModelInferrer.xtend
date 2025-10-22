@@ -16,7 +16,6 @@ import com.google.inject.Inject
 import java.time.ZonedDateTime
 import java.util.Set
 import org.openhab.core.items.ItemRegistry
-import org.openhab.core.model.script.scoping.StateAndCommandProvider
 import org.openhab.core.model.script.script.Script
 import org.eclipse.xtext.xbase.jvmmodel.AbstractModelInferrer
 import org.eclipse.xtext.xbase.jvmmodel.IJvmDeclaredTypeAcceptor
@@ -95,9 +94,6 @@ class ScriptJvmModelInferrer extends AbstractModelInferrer {
     @Inject
     ItemRegistry itemRegistry
 
-    @Inject
-    StateAndCommandProvider stateAndCommandProvider
-
     /**
      * Is called for each instance of the first argument's type contained in a resource.
      * 
@@ -112,18 +108,6 @@ class ScriptJvmModelInferrer extends AbstractModelInferrer {
         acceptor.accept(script.toClass(className), [
 
             val Set<String> fieldNames = newHashSet()
-
-            val types = stateAndCommandProvider.allTypes
-            types.forEach [ type |
-                val name = type.toString
-                if (fieldNames.add(name)) {
-                    members += script.toField(name, typeRef(type.class)) [
-                        static = true
-                    ]
-                } else {
-                    logger.warn("Duplicate field: '{}'. Ignoring '{}'.", name, type.class.name)
-                }
-            ]
 
             itemRegistry?.items?.forEach [ item |
                 val name = item.name

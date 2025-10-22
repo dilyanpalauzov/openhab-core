@@ -21,7 +21,6 @@ import org.openhab.core.types.Type
 import org.openhab.core.model.script.engine.ScriptError
 import org.openhab.core.model.script.engine.ScriptExecutionException
 import org.openhab.core.model.script.lib.NumberExtensions
-import org.openhab.core.model.script.scoping.StateAndCommandProvider
 import org.openhab.core.model.script.script.QuantityLiteral
 import org.eclipse.xtext.common.types.JvmField
 import org.eclipse.xtext.common.types.JvmIdentifiableElement
@@ -52,9 +51,6 @@ class ScriptInterpreter extends XbaseInterpreter {
     ItemRegistry itemRegistry
 
     @Inject
-    StateAndCommandProvider stateAndCommandProvider
-    
-    @Inject
     IBatchTypeResolver typeResolver;
 
     @Inject
@@ -68,10 +64,8 @@ class ScriptInterpreter extends XbaseInterpreter {
         if (sourceElement !== null) {
             val value = context.getValue(QualifiedName.create(jvmField.simpleName))
             value ?: {
-
-                // Looks like we have a state, command or item field
-                val fieldName = jvmField.simpleName
-                fieldName.stateOrCommand ?: fieldName.item
+                // Looks like we have an item field
+                jvmField.simpleName.item
             }
         } else {
             super._invokeFeature(jvmField, featureCall, receiver, context, indicator)
@@ -97,14 +91,6 @@ class ScriptInterpreter extends XbaseInterpreter {
             }
         }
         super.invokeFeature(feature, featureCall, receiverObj, context, indicator)
-    }
-
-    def protected Type getStateOrCommand(String name) {
-        for (Type type : stateAndCommandProvider.getAllTypes()) {
-            if (type.toString == name) {
-                return type
-            }
-        }
     }
 
     def protected Item getItem(String name) {
