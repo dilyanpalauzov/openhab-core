@@ -41,13 +41,7 @@ class ScriptJvmModelInferrer extends AbstractModelInferrer {
     static final Logger logger = LoggerFactory.getLogger(ScriptJvmModelInferrer)
 
     /** Variable name for the group in a "member of state triggered" or "member of command triggered" rule */
-    public static final String VAR_TRIGGERING_GROUP = "triggeringGroup";
-
-    /** Variable name for the group in a "member of state triggered" or "member of command triggered" rule */
     public static final String VAR_TRIGGERING_GROUP_NAME = "triggeringGroupName";
-
-    /** Variable name for the item in a "state triggered" or "command triggered" rule */
-    public static final String VAR_TRIGGERING_ITEM = "triggeringItem";
 
     /** Variable name for the item in a "state triggered" or "command triggered" rule */
     public static final String VAR_TRIGGERING_ITEM_NAME = "triggeringItemName";
@@ -57,12 +51,6 @@ class ScriptJvmModelInferrer extends AbstractModelInferrer {
 
     /** Variable name for the new state of an item in a "changed state triggered" or "updated state triggered" rule */
     public static final String VAR_NEW_STATE = "newState";
-
-    /** Variable name for the last update time of an item in a "changed state triggered" or "updated state triggered" rule */
-    public static final String VAR_LAST_STATE_UPDATE = "lastStateUpdate";
-
-    /** Variable name for the last change time of an item in a "changed state triggered" rule */
-    public static final String VAR_LAST_STATE_CHANGE = "lastStateChange";
 
     /** Variable name for the received command in a "command triggered" rule */
     public static final String VAR_RECEIVED_COMMAND = "receivedCommand";
@@ -122,12 +110,8 @@ class ScriptJvmModelInferrer extends AbstractModelInferrer {
 
             members += script.toMethod("_script", null) [
                 static = true
-                val groupTypeRef = typeRef(Item)
-                parameters += script.toParameter(VAR_TRIGGERING_GROUP, groupTypeRef)
                 val groupNameRef = typeRef(String)
                 parameters += script.toParameter(VAR_TRIGGERING_GROUP_NAME, groupNameRef)
-                val itemTypeRef = typeRef(Item)
-                parameters += script.toParameter(VAR_TRIGGERING_ITEM, itemTypeRef)
                 val itemNameRef = typeRef(String)
                 parameters += script.toParameter(VAR_TRIGGERING_ITEM_NAME, itemNameRef)
                 val commandTypeRef = typeRef(Command)
@@ -146,10 +130,6 @@ class ScriptJvmModelInferrer extends AbstractModelInferrer {
                 parameters += script.toParameter(VAR_NEW_STATUS, newThingStatusRef)
                 val stateTypeRef2 = typeRef(State)
                 parameters += script.toParameter(VAR_NEW_STATE, stateTypeRef2)
-                val lastStateUpdateTypeRef = typeRef(ZonedDateTime)
-                parameters += script.toParameter(VAR_LAST_STATE_UPDATE, lastStateUpdateTypeRef)
-                val lastStateChangeTypeRef = typeRef(ZonedDateTime)
-                parameters += script.toParameter(VAR_LAST_STATE_CHANGE, lastStateChangeTypeRef)
                 val privateCacheTypeRef = typeRef(ValueCache)
                 parameters += script.toParameter(VAR_PRIVATE_CACHE, privateCacheTypeRef)
                 val sharedCacheTypeRef = typeRef(ValueCache)
