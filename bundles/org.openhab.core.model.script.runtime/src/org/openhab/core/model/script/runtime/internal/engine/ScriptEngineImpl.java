@@ -118,11 +118,6 @@ public class ScriptEngineImpl implements ScriptEngine, ModelParser {
         return script;
     }
 
-    @Override
-    public Object executeScript(String scriptAsString) throws ScriptParsingException, ScriptExecutionException {
-        return newScriptFromString(scriptAsString).execute();
-    }
-
     private XExpression parseScriptIntoXTextEObject(String scriptAsString) throws ScriptParsingException {
         XtextResourceSet resourceSet = getResourceSet();
         Resource resource = resourceSet.createResource(computeUnusedUri(resourceSet)); // IS-A XtextResource
