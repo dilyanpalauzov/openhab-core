@@ -74,14 +74,6 @@ class RulesJvmModelInferrer extends ScriptJvmModelInferrer {
     def dispatch void infer(RuleModel ruleModel, IJvmDeclaredTypeAcceptor acceptor, boolean isPreIndexingPhase) {
         val className = ruleModel.eResource.URI.lastSegment.split("\\.").head.toFirstUpper + "Rules"
         acceptor.accept(ruleModel.toClass(className), [
-            members += ruleModel.variables.map [
-                toField(name, type?.cloneWithProxies) => [ field |
-                    field.static = true
-                    field.final = !writeable
-                    field.initializer = right
-                ]
-            ]
-
             val Set<String> fieldNames = newHashSet()
 
             itemRegistry?.items?.forEach [ item |
@@ -97,6 +89,13 @@ class RulesJvmModelInferrer extends ScriptJvmModelInferrer {
 
             members += ruleModel.rules.map [ rule |
                 rule.toMethod("_" + rule.name, typeRef(Void.TYPE)) [
+        ])
+}
+
+def dispatch void infer(Rule rule, IJvmDeclaredTypeAcceptor acceptor, boolean isPreIndexingPhase) {
+        val className = rule.eResource.URI.lastSegment.split("\\.").head.toFirstUpper + "Rule"
+        acceptor.accept(rule.toClass(className), [
+                rule.toMethod("_" + rule.name, typeRef(String)) [
                     static = true
                     parameters += rule.toParameter(VAR_EVENT_OBJECT, typeRef(Event))
                     parameters += rule.toParameter(VAR_CTX, typeRef(Map, typeRef(String), typeRef(Object)))
@@ -150,9 +149,8 @@ class RulesJvmModelInferrer extends ScriptJvmModelInferrer {
                         parameters += rule.toParameter(VAR_NEW_STATUS, newStatusRef)
                     }
 
-                    body = rule.script
+                    body = rule.expression
                 ]
-            ]
         ])
     }
 
