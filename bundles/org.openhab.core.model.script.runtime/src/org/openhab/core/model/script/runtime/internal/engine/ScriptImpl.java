@@ -80,8 +80,7 @@ public class ScriptImpl implements Script {
                 IEvaluationResult result = interpreter.evaluate(xExpression, evaluationContext,
                         CancelIndicator.NullImpl);
                 if (result == null) {
-                    // this can only happen on an InterpreterCancelledException,
-                    // i.e. NEVER ;-)
+                    // this can only happen on an InterpreterCancelledException, i.e. NEVER ;-)
                     return null;
                 }
                 if (result.getException() != null) {
