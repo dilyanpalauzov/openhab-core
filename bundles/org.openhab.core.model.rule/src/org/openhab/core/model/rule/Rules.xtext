@@ -154,7 +154,7 @@ ItemName :
 ;
 
 ValidState:
-	ValidStateId | ValidStateNumber | ValidStateString
+	ValidStateId | ValidStateNumber | ValidStateString | ValidStateQuantityLiteral
 ;
 
 ValidStateId:
@@ -167,6 +167,10 @@ ValidStateNumber:
 
 ValidStateString:
 	value=STRING
+;
+
+ValidStateQuantityLiteral:
+    value=QuantityLiteral
 ;
 
 ValidCommand:
