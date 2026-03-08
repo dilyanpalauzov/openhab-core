@@ -14,6 +14,8 @@ package org.openhab.core.model.rule.scoping;
 
 import org.eclipse.xtext.common.types.access.impl.ClassFinder;
 import org.eclipse.xtext.common.types.access.impl.ClassNameUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This is a customized version of the {@link ClassFinder}.
@@ -31,6 +33,7 @@ public class RulesClassFinder extends ClassFinder {
 
     private final ClassLoader classLoader;
     private final ClassNameUtil classNameUtil = new ClassNameUtil();
+    private final Logger logger = LoggerFactory.getLogger(RulesClassFinder.class);
 
     protected RulesClassFinder(ClassLoader classLoader) {
         super(classLoader);
@@ -43,6 +46,7 @@ public class RulesClassFinder extends ClassFinder {
         Class<?> result = cache.get(name);
         if (result != null) {
             if (result == NULL_CLASS) {
+                logger.error("CLASS {} NOT FOUND IN CACHE, returning CACHED_EXCEPTION", name);
                 throw CACHED_EXCEPTION;
             }
             return result;
@@ -53,6 +57,7 @@ public class RulesClassFinder extends ClassFinder {
             cache.put(name, result);
             return result;
         } catch (ClassNotFoundException e) {
+            logger.error("ClassNotFoundExcetion for {} - this is now NULL_CLASS", name);
             cache.put(name, NULL_CLASS);
             throw e;
         }
