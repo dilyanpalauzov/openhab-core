@@ -6,6 +6,7 @@ generate script "https://openhab.org/model/Script"
 
 Script returns XBlockExpression: 
 	{Script}
+	importSection = XImportSection?
 	(expressions+=XExpressionOrVarDeclaration ';'?)* 
 ;
 
