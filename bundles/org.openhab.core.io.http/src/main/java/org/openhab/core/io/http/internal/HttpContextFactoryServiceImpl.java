@@ -28,7 +28,7 @@ import org.osgi.service.http.HttpService;
  *
  * @author Henning Treu - Initial contribution
  */
-@Component(service = HttpContextFactoryService.class)
+@Component
 public class HttpContextFactoryServiceImpl implements HttpContextFactoryService {
 
     private WrappingHttpContext httpContext;

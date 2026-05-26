@@ -55,7 +55,7 @@ import org.slf4j.LoggerFactory;
  * @author Jonathan Gilbert - included passing of context to script engines
  */
 @NonNullByDefault
-@Component(service = ScriptEngineManager.class)
+@Component
 public class ScriptEngineManagerImpl implements ScriptEngineManager {
 
     private final ScheduledExecutorService scheduler = ThreadPoolManager

@@ -44,7 +44,7 @@ import org.slf4j.LoggerFactory;
  * @author Kai Kreuzer - Initial contribution
  * @author Florian Hotze - Refactored to OSGi service
  */
-@Component(immediate = true, service = BusEvent.class)
+@Component(immediate = true)
 @NonNullByDefault
 public class BusEventImpl implements BusEvent {
     private static final String AUTOMATION_SOURCE = "org.openhab.core.automation.module.script";

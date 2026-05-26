@@ -42,7 +42,7 @@ import gnu.io.NoSuchPortException;
  * @author Gwendal Roulleau - Workaround for long path issue by resolving symlink
  */
 @NonNullByDefault
-@Component(service = SerialPortProvider.class)
+@Component
 public class RxTxPortProvider implements SerialPortProvider {
 
     private final Logger logger = LoggerFactory.getLogger(RxTxPortProvider.class);

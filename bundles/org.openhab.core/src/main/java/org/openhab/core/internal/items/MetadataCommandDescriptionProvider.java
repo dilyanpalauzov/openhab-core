@@ -38,7 +38,7 @@ import org.slf4j.LoggerFactory;
  *
  */
 @NonNullByDefault
-@Component(service = CommandDescriptionProvider.class)
+@Component
 public class MetadataCommandDescriptionProvider implements CommandDescriptionProvider {
 
     private final Logger logger = LoggerFactory.getLogger(MetadataCommandDescriptionProvider.class);

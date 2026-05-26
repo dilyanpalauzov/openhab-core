@@ -40,7 +40,7 @@ import org.osgi.service.component.annotations.Reference;
  *
  * @author Markus Rathgeb - Initial contribution
  */
-@Component(immediate = true, service = { ConfigI18nLocalizationService.class })
+@Component(immediate = true, service = ConfigI18nLocalizationService.class)
 @NonNullByDefault
 public class ConfigI18nLocalizationService {
 

@@ -120,7 +120,7 @@ import org.slf4j.LoggerFactory;
  * @author Florian Hotze - add support for script condition/action compilation
  * @author Robert Delbrück - add support for rule execution duration
  */
-@Component(immediate = true, service = { RuleManager.class }, configurationPid = RuleEngineImpl.SERVICE_PID)
+@Component(immediate = true, service = RuleManager.class, configurationPid = RuleEngineImpl.SERVICE_PID)
 @NonNullByDefault
 public class RuleEngineImpl implements RuleManager, RegistryChangeListener<ModuleType>, ReadyTracker {
 

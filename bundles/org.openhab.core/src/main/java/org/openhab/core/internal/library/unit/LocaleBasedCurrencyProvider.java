@@ -36,7 +36,7 @@ import org.osgi.service.component.annotations.Reference;
  *
  * @author Jan N. Klug - Initial contribution
  */
-@Component(service = CurrencyProvider.class, property = { Constants.SERVICE_PID + "=org.openhab.localebasedcurrency" })
+@Component(property = { Constants.SERVICE_PID + "=org.openhab.localebasedcurrency" })
 @NonNullByDefault
 public class LocaleBasedCurrencyProvider implements CurrencyProvider {
 

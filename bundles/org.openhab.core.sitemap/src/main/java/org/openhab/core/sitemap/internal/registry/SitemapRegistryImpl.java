@@ -31,7 +31,7 @@ import org.osgi.service.component.annotations.ReferencePolicy;
  * @author Mark Herwege - Initial contribution
  */
 @NonNullByDefault
-@Component(service = SitemapRegistry.class, immediate = true)
+@Component(immediate = true)
 public class SitemapRegistryImpl extends AbstractRegistry<Sitemap, String, SitemapProvider> implements SitemapRegistry {
 
     @Activate

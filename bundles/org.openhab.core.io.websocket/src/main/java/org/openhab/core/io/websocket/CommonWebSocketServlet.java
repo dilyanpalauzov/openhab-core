@@ -65,7 +65,7 @@ import org.slf4j.LoggerFactory;
 @NonNullByDefault
 @HttpWhiteboardServletName(CommonWebSocketServlet.SERVLET_PATH)
 @HttpWhiteboardServletPattern(CommonWebSocketServlet.SERVLET_PATH + "/*")
-@Component(immediate = true, service = { Servlet.class })
+@Component(immediate = true, service = Servlet.class)
 public class CommonWebSocketServlet extends WebSocketServlet {
     @Serial
     private static final long serialVersionUID = 1L;

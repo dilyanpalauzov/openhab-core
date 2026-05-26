@@ -41,7 +41,7 @@ import org.slf4j.LoggerFactory;
  * @author Simon Kaufmann - adapted to CompletableFutures
  * @author Hilbrand Bouwkamp - moved cron scheduling to it's own interface
  */
-@Component(service = CronScheduler.class)
+@Component
 @NonNullByDefault
 public class CronSchedulerImpl implements CronScheduler {
 

@@ -31,7 +31,7 @@ import org.osgi.service.component.annotations.Reference;
  * @author Jonathan Gilbert - initial contribution
  */
 @NonNullByDefault
-@Component(immediate = true)
+@Component
 public class DefaultScriptFileWatcher extends AbstractScriptFileWatcher {
 
     private static final String FILE_DIRECTORY = "automation" + File.separator + "jsr223";

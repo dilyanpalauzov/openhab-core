@@ -29,7 +29,7 @@ import org.osgi.service.component.annotations.Component;
  *
  * @author Yannick Schaus - initial contribution
  */
-@Component(service = JaasRealm.class)
+@Component
 @Service
 public class ManagedUserRealm implements JaasRealm {
 

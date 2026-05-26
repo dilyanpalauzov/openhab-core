@@ -45,7 +45,7 @@ import org.slf4j.LoggerFactory;
  * @author Jonathan Gilbert - Made providers' collections immutable.
  */
 @NonNullByDefault
-@Component(service = UIComponentRegistryFactory.class, immediate = true)
+@Component(immediate = true)
 public class UIComponentRegistryFactoryImpl implements UIComponentRegistryFactory {
     private final Logger logger = LoggerFactory.getLogger(UIComponentRegistryFactoryImpl.class);
 

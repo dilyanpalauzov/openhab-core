@@ -26,7 +26,7 @@ import org.osgi.service.component.annotations.Reference;
  *
  * @author Yannick Schaus - initial contribution
  */
-@Component(service = BackingEngineFactory.class)
+@Component
 public class ManagedUserBackingEngineFactory implements BackingEngineFactory {
 
     private final UserRegistry userRegistry;

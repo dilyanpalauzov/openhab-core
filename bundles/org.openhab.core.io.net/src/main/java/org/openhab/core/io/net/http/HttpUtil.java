@@ -57,7 +57,7 @@ import org.slf4j.LoggerFactory;
  * @author Thomas Eichstaedt-Engelen - Initial contribution
  * @author Svilen Valkanov - replaced Apache HttpClient with Jetty
  */
-@Component(immediate = true)
+@Component
 public class HttpUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(HttpUtil.class);
 

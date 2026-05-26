@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author Markus Rathgeb - Initial contribution
  */
-@Component(immediate = true)
+@Component
 public class ConsoleSupportKaraf {
 
     private final Logger logger = LoggerFactory.getLogger(ConsoleSupportKaraf.class);

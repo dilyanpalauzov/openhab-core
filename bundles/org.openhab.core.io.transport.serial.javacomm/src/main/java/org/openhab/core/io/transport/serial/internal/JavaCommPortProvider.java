@@ -37,7 +37,7 @@ import org.slf4j.LoggerFactory;
  * @author Matthias Steigenberger - Initial contribution
  */
 @NonNullByDefault
-@Component(service = SerialPortProvider.class)
+@Component
 public class JavaCommPortProvider implements SerialPortProvider {
 
     private final Logger logger = LoggerFactory.getLogger(JavaCommPortProvider.class);

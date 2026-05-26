@@ -37,7 +37,7 @@ import org.slf4j.LoggerFactory;
  * @author Jan N. Klug - Initial contribution
  */
 @NonNullByDefault
-@Component(immediate = true, service = WatchServiceFactory.class)
+@Component(immediate = true)
 public class WatchServiceFactoryImpl implements WatchServiceFactory {
     private final Logger logger = LoggerFactory.getLogger(WatchServiceFactoryImpl.class);
 

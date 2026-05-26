@@ -42,7 +42,7 @@ import org.slf4j.LoggerFactory;
  * @author Thomas Höfer - Initial contribution
  * @author Dimitar Ivanov - The firmwares are provided by thing and version
  */
-@Component(immediate = true, service = FirmwareRegistry.class)
+@Component(immediate = true)
 @NonNullByDefault
 public final class FirmwareRegistryImpl implements FirmwareRegistry {
 

@@ -47,7 +47,7 @@ import org.slf4j.LoggerFactory;
  * @author Kai Kreuzer - Initial contribution
  * @author Mark Herwege - semantics namespace not in managed provider
  */
-@Component(immediate = true, service = MetadataRegistry.class)
+@Component(immediate = true)
 @NonNullByDefault
 public class MetadataRegistryImpl extends AbstractRegistry<Metadata, MetadataKey, MetadataProvider>
         implements MetadataRegistry {

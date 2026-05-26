@@ -30,7 +30,7 @@ import org.osgi.service.component.annotations.Reference;
  * @author Simon Kaufmann - adapted to CompletableFutures
  * @author Hilbrand Bouwkamp - moved periodic scheduling to it's own interface
  */
-@Component(service = PeriodicScheduler.class)
+@Component
 @NonNullByDefault
 public class PeriodicSchedulerImpl implements PeriodicScheduler {
 

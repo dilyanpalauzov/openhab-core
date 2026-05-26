@@ -24,7 +24,7 @@ import org.osgi.service.component.annotations.Component;
  *
  * @author Henning Treu - Initial contribution
  */
-@Component(service = BundleResolver.class)
+@Component
 @NonNullByDefault
 public class BundleResolverImpl implements BundleResolver {
 

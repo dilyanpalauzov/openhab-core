@@ -44,7 +44,7 @@ import org.slf4j.LoggerFactory;
  *
  */
 @NonNullByDefault
-@Component(service = StateDescriptionFragmentProvider.class)
+@Component
 public class MetadataStateDescriptionFragmentProvider implements StateDescriptionFragmentProvider {
 
     private final Logger logger = LoggerFactory.getLogger(MetadataStateDescriptionFragmentProvider.class);

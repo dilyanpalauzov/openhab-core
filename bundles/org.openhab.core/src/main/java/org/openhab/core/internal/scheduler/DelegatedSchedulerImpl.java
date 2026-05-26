@@ -37,7 +37,7 @@ import org.osgi.service.component.annotations.Reference;
  *
  * @author Peter Kriens - Initial contribution
  */
-@Component(service = Scheduler.class, immediate = true)
+@Component(immediate = true)
 @NonNullByDefault
 public class DelegatedSchedulerImpl implements Scheduler {
 

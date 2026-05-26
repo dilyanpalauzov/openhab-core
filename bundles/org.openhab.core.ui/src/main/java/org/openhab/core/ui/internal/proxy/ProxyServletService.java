@@ -77,7 +77,7 @@ import org.slf4j.LoggerFactory;
  * @author Mark Herwege - Implement sitemap registry
  */
 @NonNullByDefault
-@Component(immediate = true, property = { "service.pid=org.openhab.proxy" })
+@Component(property = { "service.pid=org.openhab.proxy" })
 public class ProxyServletService extends HttpServlet {
 
     /** the alias for this servlet */

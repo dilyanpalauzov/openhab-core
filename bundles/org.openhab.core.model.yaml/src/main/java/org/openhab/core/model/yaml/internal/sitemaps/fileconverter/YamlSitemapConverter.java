@@ -65,7 +65,7 @@ import org.osgi.service.component.annotations.Reference;
  * @author Mark Herwege - Add support for nested sitemaps
  */
 @NonNullByDefault
-@Component(immediate = true, service = { SitemapSerializer.class, SitemapParser.class })
+@Component(immediate = true)
 public class YamlSitemapConverter implements SitemapSerializer, SitemapParser {
 
     private final YamlModelRepository modelRepository;

@@ -38,7 +38,7 @@ import org.osgi.service.component.annotations.Reference;
  *
  * @author Kai Kreuzer - Initial contribution
  */
-@Component(immediate = true, service = { IconProvider.class })
+@Component(immediate = true, service = IconProvider.class)
 @NonNullByDefault
 public class CustomIconProvider extends AbstractResourceIconProvider {
 

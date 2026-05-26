@@ -32,7 +32,7 @@ import org.osgi.service.component.annotations.ReferencePolicy;
  *
  * @author Jan N. Klug - Initial contribution
  */
-@Component(service = ConfigOptionProvider.class)
+@Component
 @NonNullByDefault
 public class CurrencyServiceConfigOptionProvider implements ConfigOptionProvider {
 

@@ -48,7 +48,7 @@ import org.osgi.service.component.annotations.Reference;
  * @author Christoph Weitkamp - Added parameter volume
  */
 @NonNullByDefault
-@Component(service = ModuleTypeProvider.class)
+@Component
 public class MediaActionTypeProvider implements ModuleTypeProvider {
 
     private final AudioManager audioManager;

@@ -49,7 +49,7 @@ import org.slf4j.LoggerFactory;
  * @author Jan N. Klug - Initial contribution
  */
 @NonNullByDefault
-@Component(immediate = true, service = AddonService.class, name = JarFileAddonService.SERVICE_NAME)
+@Component(immediate = true, name = JarFileAddonService.SERVICE_NAME)
 public class JarFileAddonService extends BundleTracker<Bundle> implements AddonService {
     public static final String SERVICE_ID = "jar";
     public static final String SERVICE_NAME = "jar-file-add-on-service";

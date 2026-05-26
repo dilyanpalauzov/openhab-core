@@ -42,7 +42,7 @@ import com.google.gson.Gson;
  * @author Jan N. Klug - Initial contribution
  */
 @NonNullByDefault
-@Component(immediate = true, service = { WebSocketAdapter.class })
+@Component(immediate = true)
 public class LogWebSocketAdapter implements WebSocketAdapter {
     public static final String ADAPTER_ID = "logs";
 

@@ -47,7 +47,7 @@ import com.thoughtworks.xstream.converters.ConversionException;
  * @author Kai Kreuzer - Reduce it to support a single addons.xml file
  */
 @NonNullByDefault
-@Component(service = AddonInfoProvider.class, name = AddonInfoAddonsXmlProvider.SERVICE_NAME)
+@Component(name = AddonInfoAddonsXmlProvider.SERVICE_NAME)
 public class AddonInfoAddonsXmlProvider implements AddonInfoProvider {
 
     private static final String ADDONS_XML_FILE = "etc" + File.separator + "addons.xml";

@@ -36,7 +36,7 @@ import org.slf4j.LoggerFactory;
  * @author Kai Kreuzer - Initial contribution
  * @author Jan N. Klug - Refactored to OSGi service
  */
-@Component(immediate = true)
+@Component
 @NonNullByDefault
 public class TransformationHelper {
     private static final Map<String, TransformationService> SERVICES = new ConcurrentHashMap<>();

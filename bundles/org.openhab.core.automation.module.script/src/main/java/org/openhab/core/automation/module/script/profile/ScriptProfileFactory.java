@@ -41,7 +41,7 @@ import org.osgi.service.component.annotations.ReferencePolicy;
  * @author Jan N. Klug - Initial contribution
  */
 @NonNullByDefault
-@Component(service = { ProfileFactory.class, ProfileTypeProvider.class })
+@Component
 public class ScriptProfileFactory implements ProfileFactory, ProfileTypeProvider {
     public static final String PROFILE_CONFIG_URI_PREFIX = "profile:transform:";
 

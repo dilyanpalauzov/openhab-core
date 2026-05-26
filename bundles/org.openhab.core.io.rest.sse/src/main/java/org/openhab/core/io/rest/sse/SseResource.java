@@ -84,7 +84,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
  * @author Wouter Born - Rework SSE item state sinks for dropping Glassfish
  * @author Wouter Born - Migrated to OpenAPI annotations
  */
-@Component(service = { RESTResource.class, SsePublisher.class })
+@Component
 @JaxrsResource
 @JaxrsName(SseResource.PATH_EVENTS)
 @JaxrsApplicationSelect("(" + JaxrsWhiteboardConstants.JAX_RS_NAME + "=" + RESTConstants.JAX_RS_NAME + ")")

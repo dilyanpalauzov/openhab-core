@@ -29,7 +29,7 @@ import org.osgi.service.component.annotations.Reference;
  *
  * @author Christoph Weitkamp - Initial contribution
  */
-@Component(immediate = true, service = { AddonI18nLocalizationService.class })
+@Component(immediate = true, service = AddonI18nLocalizationService.class)
 @NonNullByDefault
 public class AddonI18nLocalizationService {
 

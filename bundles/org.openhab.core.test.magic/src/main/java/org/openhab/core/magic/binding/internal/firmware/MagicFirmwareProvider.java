@@ -31,7 +31,7 @@ import org.osgi.service.component.annotations.Component;
  * @author Dimitar Ivanov - Initial contribution
  */
 @NonNullByDefault
-@Component(service = FirmwareProvider.class)
+@Component
 public class MagicFirmwareProvider implements FirmwareProvider {
 
     //@formatter:off

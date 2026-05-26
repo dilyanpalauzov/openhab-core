@@ -111,7 +111,7 @@ import org.slf4j.LoggerFactory;
  * @author Ravi Nadahar - Initial contribution
  */
 @NonNullByDefault
-@Component(immediate = true, service = { RuleSerializer.class, RuleParser.class })
+@Component(immediate = true)
 public class DslRuleConverter implements RuleSerializer, RuleParser {
 
     private static final String SCRIPT_PLACEHOLDER_PREFIX = "SCRIPT_PLACEHOLDER_";

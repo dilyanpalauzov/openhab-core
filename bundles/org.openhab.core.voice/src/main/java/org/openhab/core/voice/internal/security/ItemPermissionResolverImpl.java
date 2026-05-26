@@ -44,7 +44,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author Florian Hotze - Initial contribution
  */
-@Component(service = ItemPermissionResolver.class, configurationPid = VoiceConfigurationConstants.CONFIGURATION_PID)
+@Component(configurationPid = VoiceConfigurationConstants.CONFIGURATION_PID)
 @NonNullByDefault
 public class ItemPermissionResolverImpl implements ItemPermissionResolver {
     private final Logger logger = LoggerFactory.getLogger(ItemPermissionResolverImpl.class);

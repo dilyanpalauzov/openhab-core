@@ -77,7 +77,7 @@ import org.slf4j.LoggerFactory;
  * @author Mark Herwege - handle timeseries update
  * @author Mark Herwege - use base unit for calculations and results
  */
-@Component(immediate = true)
+@Component
 @NonNullByDefault
 public class PersistenceExtensions {
 

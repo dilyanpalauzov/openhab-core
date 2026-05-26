@@ -34,7 +34,7 @@ import org.slf4j.LoggerFactory;
  * @author Simon Kaufmann - Initial contribution
  */
 @NonNullByDefault
-@Component(immediate = true)
+@Component
 public class MagicMetadataUsingService {
 
     private final Logger logger = LoggerFactory.getLogger(MagicMetadataUsingService.class);

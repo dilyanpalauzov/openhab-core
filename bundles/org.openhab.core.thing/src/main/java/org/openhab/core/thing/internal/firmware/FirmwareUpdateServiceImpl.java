@@ -68,7 +68,7 @@ import org.slf4j.LoggerFactory;
  * @author Dimitar Ivanov - update and cancel operations are run with different safe caller identifiers in order to
  *         execute asynchronously; Firmware update is done for thing
  */
-@Component(immediate = true, service = { EventSubscriber.class, FirmwareUpdateService.class })
+@Component(immediate = true)
 @NonNullByDefault
 public final class FirmwareUpdateServiceImpl implements FirmwareUpdateService, EventSubscriber {
     private static final String THREAD_POOL_NAME = FirmwareUpdateServiceImpl.class.getSimpleName();

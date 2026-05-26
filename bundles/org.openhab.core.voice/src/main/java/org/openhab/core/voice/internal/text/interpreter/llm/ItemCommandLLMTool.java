@@ -44,7 +44,7 @@ import org.osgi.service.component.annotations.Reference;
  * @author Florian Hotze - Initial contribution
  */
 @NonNullByDefault
-@Component(service = LLMTool.class, immediate = true)
+@Component(immediate = true)
 public class ItemCommandLLMTool implements LLMTool {
     public static final String ID = "item-send-command";
 

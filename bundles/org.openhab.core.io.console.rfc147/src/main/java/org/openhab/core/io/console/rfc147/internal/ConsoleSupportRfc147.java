@@ -46,7 +46,7 @@ import org.slf4j.LoggerFactory;
  * @author Markus Rathgeb - Initial contribution
  */
 @NonNullByDefault
-@Component(immediate = true, service = {})
+@Component(service = {})
 public class ConsoleSupportRfc147 implements ConsoleCommandsContainer {
 
     // private static final String KEY_SCOPE = CommandProcessor.COMMAND_SCOPE;

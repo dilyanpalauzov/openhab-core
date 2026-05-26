@@ -53,8 +53,7 @@ import org.slf4j.LoggerFactory;
  * @author Kai Kreuzer - fixed issues if a linked thing is OFFLINE
  */
 @NonNullByDefault
-@Component(immediate = true, service = {
-        AutoUpdateManager.class }, configurationPid = "org.openhab.autoupdate", configurationPolicy = ConfigurationPolicy.OPTIONAL)
+@Component(immediate = true, service = AutoUpdateManager.class, configurationPid = "org.openhab.autoupdate", configurationPolicy = ConfigurationPolicy.OPTIONAL)
 public class AutoUpdateManager {
 
     private static final String AUTOUPDATE_KEY = "autoupdate";

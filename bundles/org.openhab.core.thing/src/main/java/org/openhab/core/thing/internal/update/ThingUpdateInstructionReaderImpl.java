@@ -48,7 +48,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author Jan N. Klug - Initial contribution
  */
-@Component(service = ThingUpdateInstructionReader.class)
+@Component
 @NonNullByDefault
 public class ThingUpdateInstructionReaderImpl implements ThingUpdateInstructionReader {
     private final Logger logger = LoggerFactory.getLogger(ThingUpdateInstructionReaderImpl.class);

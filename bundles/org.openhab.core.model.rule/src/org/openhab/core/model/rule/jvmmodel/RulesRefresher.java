@@ -51,7 +51,7 @@ import org.slf4j.LoggerFactory;
  * @author Kai Kreuzer - added delayed execution
  * @author Maoliang Huang - refactor
  */
-@Component(immediate = true, service = {})
+@Component(service = {})
 @NonNullByDefault
 public class RulesRefresher implements ReadyTracker {
 

@@ -33,7 +33,7 @@ import org.osgi.service.component.annotations.ReferencePolicy;
  *
  * @author Simon Kaufmann - Initial contribution
  */
-@Component(service = ProfileTypeRegistry.class)
+@Component
 @NonNullByDefault
 public class ProfileTypeRegistryImpl implements ProfileTypeRegistry {
 

@@ -53,7 +53,7 @@ import org.osgi.service.component.annotations.Component;
  * @author Mark Herwege - Add support for nested sitemaps
  */
 @NonNullByDefault
-@Component(service = SitemapFactory.class, immediate = true)
+@Component(immediate = true)
 public class SitemapFactoryImpl implements SitemapFactory {
 
     private static final String[] WIDGET_TYPES = { BUTTON, BUTTON_GRID, CHART, COLOR_PICKER, COLOR_TEMPERATURE_PICKER,

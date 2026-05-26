@@ -44,7 +44,7 @@ import org.slf4j.LoggerFactory;
  * @author Chris Jackson - Added compatibility with multiple ConfigDescriptionProviders. Added Config OptionProvider.
  * @author Thomas Höfer - Added unit
  */
-@Component(immediate = true, service = { ConfigDescriptionRegistry.class })
+@Component(immediate = true, service = ConfigDescriptionRegistry.class)
 @NonNullByDefault
 public class ConfigDescriptionRegistry {
 

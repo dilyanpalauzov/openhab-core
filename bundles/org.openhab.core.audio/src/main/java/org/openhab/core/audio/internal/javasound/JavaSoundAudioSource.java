@@ -43,7 +43,7 @@ import org.slf4j.LoggerFactory;
  *
  */
 @NonNullByDefault
-@Component(service = AudioSource.class, immediate = true)
+@Component(immediate = true)
 public class JavaSoundAudioSource implements AudioSource {
 
     private final Logger logger = LoggerFactory.getLogger(JavaSoundAudioSource.class);

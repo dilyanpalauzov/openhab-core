@@ -42,7 +42,7 @@ import org.osgi.service.component.annotations.Reference;
  * @author Ravi Nadahar - Initial contribution
  */
 @NonNullByDefault
-@Component(immediate = true, service = { RuleTemplateSerializer.class, RuleTemplateParser.class })
+@Component(immediate = true)
 public class YamlRuleTemplateConverter implements RuleTemplateSerializer, RuleTemplateParser {
 
     private final YamlModelRepository modelRepository;

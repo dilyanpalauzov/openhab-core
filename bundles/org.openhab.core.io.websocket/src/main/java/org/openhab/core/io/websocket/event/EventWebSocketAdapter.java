@@ -38,7 +38,7 @@ import com.google.gson.Gson;
  * @author Jan N. Klug - Initial contribution
  */
 @NonNullByDefault
-@Component(immediate = true, service = { EventSubscriber.class, WebSocketAdapter.class })
+@Component(immediate = true)
 public class EventWebSocketAdapter implements EventSubscriber, WebSocketAdapter {
     public static final String ADAPTER_ID = "events";
     private final Gson gson = new Gson();

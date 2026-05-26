@@ -50,7 +50,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author Martin van Wingerden - Initial contribution
  */
-@Component(service = ExtensibleTrustManager.class, immediate = true)
+@Component(immediate = true)
 @NonNullByDefault
 public class ExtensibleTrustManagerImpl extends X509ExtendedTrustManager implements ExtensibleTrustManager {
     private final Logger logger = LoggerFactory.getLogger(ExtensibleTrustManagerImpl.class);

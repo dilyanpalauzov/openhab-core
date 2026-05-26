@@ -33,7 +33,7 @@ import org.osgi.service.component.annotations.ReferencePolicyOption;
  * @author Kai Kreuzer - Initial contribution
  */
 @NonNullByDefault
-@Component(service = ScriptEngineFactory.class)
+@Component
 public class DSLScriptEngineFactory implements ScriptEngineFactory {
 
     private static final String SCRIPT_TYPE = "dsl";

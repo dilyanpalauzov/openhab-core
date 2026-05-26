@@ -45,7 +45,7 @@ import org.osgi.service.component.annotations.Reference;
  * @author Ravi Nadahar - Initial contribution
  */
 @NonNullByDefault
-@Component(immediate = true, service = { RuleSerializer.class, RuleParser.class })
+@Component(immediate = true)
 public class YamlRuleConverter implements RuleSerializer, RuleParser {
 
     private final YamlModelRepository modelRepository;

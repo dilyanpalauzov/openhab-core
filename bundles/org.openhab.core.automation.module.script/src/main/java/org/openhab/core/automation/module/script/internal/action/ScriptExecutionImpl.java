@@ -30,7 +30,7 @@ import org.osgi.service.component.annotations.Reference;
  *
  * @author Kai Kreuzer - Initial contribution
  */
-@Component(immediate = true, service = ScriptExecution.class)
+@Component(immediate = true)
 @NonNullByDefault
 public class ScriptExecutionImpl implements ScriptExecution {
 

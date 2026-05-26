@@ -32,7 +32,7 @@ import org.osgi.service.component.annotations.Reference;
  * @author Jan N. Klug - Initial contribution
  */
 @NonNullByDefault
-@Component(immediate = true)
+@Component
 public class ScriptEngineFactoryBundleTracker extends AbstractServiceBundleTracker {
     public static final ReadyMarker READY_MARKER = new ReadyMarker("automation", "scriptEngineFactories");
 

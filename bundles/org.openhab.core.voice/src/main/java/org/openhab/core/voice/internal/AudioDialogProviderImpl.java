@@ -35,7 +35,7 @@ import org.osgi.service.component.annotations.Reference;
  *
  * @author Miguel Álvarez - Initial contribution
  */
-@Component(service = AudioDialogProvider.class)
+@Component
 @NonNullByDefault
 public class AudioDialogProviderImpl implements AudioDialogProvider {
     private final VoiceManager voiceManager;

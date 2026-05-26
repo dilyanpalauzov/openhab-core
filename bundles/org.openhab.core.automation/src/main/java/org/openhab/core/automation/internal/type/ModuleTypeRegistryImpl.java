@@ -42,7 +42,7 @@ import org.osgi.service.component.annotations.Component;
  * @author Kai Kreuzer - refactored (managed) provider and registry implementation
  */
 @NonNullByDefault
-@Component(service = ModuleTypeRegistry.class, immediate = true)
+@Component(immediate = true)
 public class ModuleTypeRegistryImpl extends AbstractRegistry<ModuleType, String, ModuleTypeProvider>
         implements ModuleTypeRegistry {
 
