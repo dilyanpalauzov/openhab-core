@@ -28,7 +28,7 @@ import org.openhab.core.service.WatchService;
  */
 @SuppressWarnings("rawtypes")
 @NonNullByDefault
-public class WatchServiceUtil {
+class WatchServiceUtil {
 
     private static final Map<AbstractFileProvider, Map<String, AutomationWatchService>> WATCH_SERVICES = new HashMap<>();
 

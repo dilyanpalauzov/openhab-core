@@ -32,7 +32,7 @@ import org.slf4j.LoggerFactory;
  */
 @SuppressWarnings("rawtypes")
 @NonNullByDefault
-public class AutomationWatchService implements WatchService.WatchEventListener {
+class AutomationWatchService implements WatchService.WatchEventListener {
 
     private final WatchService watchService;
     private final Path watchingDir;
