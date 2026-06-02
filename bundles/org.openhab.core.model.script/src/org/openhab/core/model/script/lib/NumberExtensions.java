@@ -21,6 +21,8 @@ import org.openhab.core.library.types.DecimalType;
 import org.openhab.core.library.types.QuantityType;
 import org.openhab.core.library.unit.Units;
 import org.openhab.core.types.Type;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class contains all kinds of extensions to be used by scripts and not
@@ -29,7 +31,7 @@ import org.openhab.core.types.Type;
  * @author Kai Kreuzer - Initial contribution
  */
 public class NumberExtensions {
-
+    private final Logger logger = LoggerFactory.getLogger(NumberExtensions.class);
     /**
      * It is the definition of Java null pointer for the rules language.
      * Actually its value is 0 (rules variables are number) but we can use
@@ -53,6 +55,7 @@ public class NumberExtensions {
     }
 
     public static BigDecimal operator_minus(Number x) {
+        logger.error("operator_minus1");
         BigDecimal xValue = numberToBigDecimal(x);
         if (xValue == null) {
             return xValue;
@@ -62,6 +65,7 @@ public class NumberExtensions {
     }
 
     public static BigDecimal operator_minus(Number x, Number y) {
+        logger.error("operator_minus2");
         BigDecimal xValue = numberToBigDecimal(x);
         BigDecimal yValue = numberToBigDecimal(y);
         if (xValue == null) {
@@ -249,11 +253,13 @@ public class NumberExtensions {
     }
 
     public static QuantityType<?> operator_minus(QuantityType<?> x) {
+        logger.error("operator_minus3");
         return x == null ? null : x.negate();
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     public static QuantityType<?> operator_minus(QuantityType<?> x, QuantityType<?> y) {
+        logger.error("operator_minus4");
         return x == null ? operator_minus(y) : y == null ? x : x.subtract((QuantityType) y);
     }
 
