@@ -267,7 +267,7 @@ public class YamlItemConverter extends AbstractItemSerializer implements ItemPar
             }
             handledNames.add(paramName);
         }
-        for (String paramName : configParameters.keySet().stream().sorted().collect(Collectors.toList())) {
+        for (String paramName : configParameters.keySet().stream().sorted().toList()) {
             if (handledNames.contains(paramName)) {
                 continue;
             }

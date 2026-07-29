@@ -36,7 +36,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
@@ -667,7 +666,7 @@ public class NetUtil implements NetworkAddressService {
     public static List<InetAddress> getFullRangeOfAddressesToScan() {
         List<InetAddress> addressesToScan = List.of();
         List<CidrAddress> ipV4InterfaceAddresses = NetUtil.getAllInterfaceAddresses().stream()
-                .filter(a -> a.getAddress() instanceof Inet4Address).collect(Collectors.toList());
+                .filter(a -> a.getAddress() instanceof Inet4Address).toList();
 
         for (CidrAddress i : ipV4InterfaceAddresses) {
             addressesToScan.addAll(getAddressesRangeByCidrAddress(i, i.getPrefix()));
@@ -713,7 +712,7 @@ public class NetUtil implements NetworkAddressService {
                 }
             }
             return r;
-        }).collect(Collectors.toList());
+        }).toList();
     }
 
     /**

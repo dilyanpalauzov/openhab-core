@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
@@ -43,7 +42,7 @@ public abstract class AbstractItemSerializer implements ItemSerializer {
     }
 
     /**
-     * Get the list of available channel links for an item, sorted by natural order of their channel UID.
+     * Get the immutable list of available channel links for an item, sorted by natural order of their channel UID.
      *
      * @param metadata a collection of metadata
      * @param itemName the item name
@@ -54,11 +53,11 @@ public abstract class AbstractItemSerializer implements ItemSerializer {
                 md -> "channel".equals(md.getUID().getNamespace()) && md.getUID().getItemName().equals(itemName))
                 .sorted((md1, md2) -> {
                     return md1.getValue().compareTo(md2.getValue());
-                }).collect(Collectors.toList());
+                }).toList();
     }
 
     /**
-     * Get the list of available metadata for an item, sorted by natural order of their namespaces.
+     * Get the immutable list of available metadata for an item, sorted by natural order of their namespaces.
      * The "semantics" and "channel" namespaces are ignored.
      *
      * @param metadata a collection of metadata
@@ -71,7 +70,7 @@ public abstract class AbstractItemSerializer implements ItemSerializer {
                         && !"channel".equals(md.getUID().getNamespace()) && md.getUID().getItemName().equals(itemName))
                 .sorted((md1, md2) -> {
                     return md1.getUID().getNamespace().compareTo(md2.getUID().getNamespace());
-                }).collect(Collectors.toList());
+                }).toList();
     }
 
     /**
@@ -85,7 +84,8 @@ public abstract class AbstractItemSerializer implements ItemSerializer {
     protected List<ConfigParameter> getConfigurationParameters(Metadata metadata) {
         String namespace = metadata.getUID().getNamespace();
         Map<String, Object> configParams = metadata.getConfiguration();
-        List<String> paramNames = configParams.keySet().stream().sorted((key1, key2) -> {
+        List<ConfigParameter> parameters = new ArrayList<>();
+        configParams.keySet().stream().sorted((key1, key2) -> {
             if ("stateDescription".equals(namespace)) {
                 if ("min".equals(key1)) {
                     return -1;
@@ -102,15 +102,12 @@ public abstract class AbstractItemSerializer implements ItemSerializer {
                 }
             }
             return key1.compareTo(key2);
-        }).collect(Collectors.toList());
-
-        List<ConfigParameter> parameters = new ArrayList<>();
-        for (String paramName : paramNames) {
+        }).forEach(paramName -> {
             Object value = configParams.get(paramName);
             if (value != null) {
                 parameters.add(new ConfigParameter(paramName, value));
             }
-        }
+        });
         return parameters;
     }
 

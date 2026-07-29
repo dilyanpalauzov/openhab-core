@@ -20,7 +20,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
@@ -464,7 +463,7 @@ public class StandardInterpreter extends AbstractRuleBasedInterpreter {
                             new ItemStateCommandSupplier(label, commandByItem));
                     return creator.itemDescriptionRule(commandByItem.keySet(), labeledCmd);
                 })) //
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private List<Rule> createItemMetadataRules(Locale locale, Item item) {
@@ -475,7 +474,7 @@ public class StandardInterpreter extends AbstractRuleBasedInterpreter {
         return Arrays.stream(interpreterMetadata.getValue().split("\n")) //
                 .map(line -> this.parseItemCustomRules(locale, item, line.trim(), interpreterMetadata)) //
                 .flatMap(List::stream) //
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private interface CreateItemDescriptionRule {
@@ -504,7 +503,7 @@ public class StandardInterpreter extends AbstractRuleBasedInterpreter {
                 return commandByItem.keySet().stream()//
                         .flatMap(i -> i.getAcceptedCommandTypes().stream())//
                         .distinct()//
-                        .collect(Collectors.toList());
+                        .toList();
             } else if (commandByItem.containsKey(item)) {
                 return item.getAcceptedCommandTypes();
             } else {

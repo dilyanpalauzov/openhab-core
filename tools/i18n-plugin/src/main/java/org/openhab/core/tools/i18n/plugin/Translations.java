@@ -150,7 +150,7 @@ public class Translations {
         }
 
         public static TranslationsSection section(String header, Stream<TranslationsGroup> groups) {
-            return new TranslationsSection(header, groups.sorted().collect(Collectors.toList()));
+            return new TranslationsSection(header, groups.sorted().toList());
         }
 
         public static TranslationsSection section(TranslationsGroup... groups) {

@@ -98,7 +98,7 @@ public class JsonToTranslationsConverter {
             groupBuilder.add(getGroupFromArray(outputsElement, prefix));
         }
 
-        return Stream.of(new TranslationsSection(uid, groupBuilder.build().collect(Collectors.toList())));
+        return Stream.of(new TranslationsSection(uid, groupBuilder.build().toList()));
     }
 
     private Stream<TranslationsSection> getRuleTemplate(JsonObject ruleTemplate) {
@@ -117,7 +117,7 @@ public class JsonToTranslationsConverter {
                 .ifPresent(description -> entriesBuilder.add(entry(globalPrefix + "description", description)));
         groupBuilder.add(group(entriesBuilder.build()));
 
-        return Stream.of(new TranslationsSection(uid, groupBuilder.build().collect(Collectors.toList())));
+        return Stream.of(new TranslationsSection(uid, groupBuilder.build().toList()));
     }
 
     private TranslationsGroup getGroupFromArray(JsonElement parentElement, String prefix) {

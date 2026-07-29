@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
@@ -67,14 +66,14 @@ public abstract class AbstractThingSerializer implements ThingSerializer {
      *
      * @param thing the thing
      * @param fromThings the list of things to look for
-     * @return the sorted list of child things or an empty list if the thing is not a bridge thing
+     * @return the sorted immutable list of child things or an empty list if the thing is not a bridge thing
      */
     protected List<Thing> getChildThings(Thing thing, List<Thing> fromThings) {
         if (thing instanceof Bridge bridge) {
             return fromThings.stream().filter(th -> bridge.getUID().equals(th.getBridgeUID()))
                     .sorted((thing1, thing2) -> {
                         return thing1.getUID().getAsString().compareTo(thing2.getUID().getAsString());
-                    }).collect(Collectors.toList());
+                    }).toList();
         }
         return List.of();
     }
@@ -131,7 +130,7 @@ public abstract class AbstractThingSerializer implements ThingSerializer {
             }
             handledNames.add(paramName);
         }
-        for (String paramName : configParameters.keySet().stream().sorted().collect(Collectors.toList())) {
+        for (String paramName : configParameters.keySet().stream().sorted().toList()) {
             if (handledNames.contains(paramName)) {
                 continue;
             }
@@ -188,7 +187,7 @@ public abstract class AbstractThingSerializer implements ThingSerializer {
         return thing
                 .getChannels().stream().filter(ch -> ch.getChannelTypeUID() == null
                         || ids.contains(ch.getChannelTypeUID().getId()) || channelWithNonDefaultConfig(ch))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private boolean channelWithNonDefaultConfig(Channel channel) {

@@ -294,7 +294,7 @@ def header() {
 
     headerLines = headerLines.stream().map(line -> {
         line.isBlank() ? " *" : " * " + line.replace("\${year}", year)
-    }).collect(Collectors.toList())
+    }).toList()
 
     headerLines.add(0, "/*")
     headerLines.add(" */")
