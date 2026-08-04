@@ -63,7 +63,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author Kai Kreuzer - Initial contribution
  */
-public class DSLScriptEngine implements javax.script.ScriptEngine {
+public class DSLScriptEngine implements javax.script.ScriptEngine, javax.script.Invocable {
 
     private static final String OUTPUT_EVENT = "event";
 
@@ -304,6 +304,33 @@ public class DSLScriptEngine implements javax.script.ScriptEngine {
 
     @Override
     public void setContext(ScriptContext context) {
+    }
+
+    @Override
+    public <T> T getInterface(Class<T> clasz) {
+        return null;
+    }
+
+    @Override
+    public <T> T getInterface(Object thiz, Class<T> clasz) {
+        return null;
+    }
+
+    @Override
+    public Object invokeFunction(String name, Object... args) {
+        String function = switch (args.length) {
+            case 0 -> name + ".apply";
+            default -> name + ".apply(" + args[0].replaceAll("\"", "\\\"") + ")";
+        };
+        logger.error("FUNCTION=" + function);
+        Object o = eval(function);
+        logger.erorr("RESULT=" + o);
+        return o;
+    }
+
+    @Override
+    public Object invokeMethod(Object thiz, String name, Object... args) {
+        return null;
     }
 
     @Override
