@@ -12,6 +12,7 @@
  */
 package org.openhab.core.io.console.internal.extension;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -42,10 +43,11 @@ public class AddonConsoleCommandExtension extends AbstractConsoleCommandExtensio
 
     private static final String SUBCMD_LIST = "list";
     private static final String SUBCMD_SERVICES = "services";
+    private static final String SUBCMD_INFO = "info";
     private static final String SUBCMD_INSTALL = "install";
     private static final String SUBCMD_UNINSTALL = "uninstall";
     private static final StringsCompleter SUBCMD_COMPLETER = new StringsCompleter(
-            List.of(SUBCMD_LIST, SUBCMD_SERVICES, SUBCMD_INSTALL, SUBCMD_UNINSTALL), false);
+            List.of(SUBCMD_LIST, SUBCMD_SERVICES, SUBCMD_INFO, SUBCMD_INSTALL, SUBCMD_UNINSTALL), false);
 
     private class AddonConsoleCommandCompleter implements ConsoleCommandCompleter {
         @Override
@@ -75,10 +77,11 @@ public class AddonConsoleCommandExtension extends AbstractConsoleCommandExtensio
 
     @Override
     public List<String> getUsages() {
-        return List.of(buildCommandUsage(SUBCMD_SERVICES, "list all available add-on services"),
+        return List.of(buildCommandUsage(SUBCMD_SERVICES, "lists all available add-on services"),
                 buildCommandUsage(SUBCMD_LIST + " [<serviceId>]",
                         "lists names of all add-ons (from the named service, if given)"),
                 buildCommandUsage(SUBCMD_INSTALL + " <addonUid>", "installs the given add-on"),
+                buildCommandUsage(SUBCMD_INFO + " [<serviceId>] <addonUid>", "shows information for the given add-on"),
                 buildCommandUsage(SUBCMD_UNINSTALL + " <addonUid>", "uninstalls the given add-on"));
     }
 
@@ -92,6 +95,9 @@ public class AddonConsoleCommandExtension extends AbstractConsoleCommandExtensio
                     break;
                 case SUBCMD_LIST:
                     listAddons(console, (args.length < 2) ? "" : args[1]);
+                    break;
+                case SUBCMD_INFO:
+                    infoAddon(console, args);
                     break;
                 case SUBCMD_INSTALL:
                     if (args.length == 2) {
@@ -126,6 +132,57 @@ public class AddonConsoleCommandExtension extends AbstractConsoleCommandExtensio
 
     private void listServices(Console console) {
         addonServices.values().forEach(s -> console.println(String.format("%-20s %s", s.getId(), s.getName())));
+    }
+
+    private void infoAddon(Console console, String[] args) {
+        if (args.length == 2)
+            args = new String[] { args[0], args[1].indexOf(':') == -1 ? "karaf" : args[1].split(":")[0], args[1] };
+        if (args.length != 3) {
+            console.println("Usage: addons:info [<serviceId>] <addonUid>");
+            return;
+        }
+        AddonService service = addonServices.get(args[1]);
+        if (service == null) {
+            console.println("Add-on service '" + args[1] + "' is not known.");
+            return;
+        }
+        Addon addon = service.getAddon(args[2], null);
+        console.println("Type " + addon.getType());
+        console.println("UID " + addon.getUid());
+        console.println("ID " + addon.getId());
+        console.println("Label " + addon.getLabel());
+        if (addon.getLink() != null)
+            console.println("Link " + addon.getLink());
+        if (addon.getAuthor() != null && !addon.getAuthor().isBlank())
+            console.println((addon.isVerifiedAuthor() ? "V" : "Not v") + "erified author " + addon.getAuthor());
+        if (!addon.getVersion().isBlank())
+            console.println("Version " + addon.getVersion());
+        if (addon.getMaturity() != null)
+            console.println("Maturity " + addon.getMaturity());
+        console.println("Compatible " + Boolean.valueOf(addon.getCompatible()).toString());
+        console.println("Content Type " + addon.getContentType());
+        if (addon.getDescription() != null)
+            console.println("Description " + addon.getDescription());
+        if (addon.getDetailedDescription() != null)
+            console.println("Detailed Description " + addon.getDetailedDescription());
+        if (!addon.getConfigDescriptionURI().isBlank())
+            console.println("Config Description URI " + addon.getConfigDescriptionURI());
+        if (!addon.getKeywords().isBlank())
+            console.println("Keywords " + addon.getKeywords());
+        if (addon.getLicense() != null)
+            console.println("License " + addon.getLicense());
+        if (!addon.getConnection().isBlank())
+            console.println("Connection " + addon.getConnection());
+        if (!addon.getProperties().isEmpty()) {
+            console.println("Properties:");
+            addon.getProperties().forEach((k, v) -> {
+                if (v == null || !v.getClass().isArray())
+                    console.println("  " + k + ": " + v);
+                else
+                    console.println("  " + k + ": " + Arrays.toString((Object[]) v));
+            });
+        }
+        console.println("Installed " + Boolean.valueOf(addon.isInstalled()).toString());
     }
 
     private void listAddons(Console console, String serviceId) {
